@@ -26,9 +26,9 @@ Requirements
 Usage
 -----
 
-0. Build the docker image using ``build_image.sh`` script.
+#. Build the docker image using ``build_image.sh`` script.
 
-1. Use ``darknet-docker`` script to run Darknet as usual. For a full list of arguments and instructions on how to use darknet consult https://github.com/AlexeyAB/darknet#how-to-use-on-the-command-line.
+#. Use ``darknet-docker`` script to run Darknet as usual. For a full list of arguments and instructions on how to use darknet consult https://github.com/AlexeyAB/darknet#how-to-use-on-the-command-line.
 
 **Additional information:**
 
