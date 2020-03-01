@@ -17,7 +17,7 @@ RUN dnf group install -y "Development Tools" \
     --family cmake
 
 
-# Installing dependencies
+# Installing nvidia drivers and opencv
 RUN dnf install -y --nogpgcheck "https://dl.fedoraproject.org/pub/epel/epel-release-latest-8.noarch.rpm" \
 &&  dnf install -y --nogpgcheck "https://download1.rpmfusion.org/free/el/rpmfusion-free-release-8.noarch.rpm" \
                                 "https://download1.rpmfusion.org/nonfree/el/rpmfusion-nonfree-release-8.noarch.rpm" \
@@ -25,9 +25,13 @@ RUN dnf install -y --nogpgcheck "https://dl.fedoraproject.org/pub/epel/epel-rele
 &&  dnf install -y xorg-x11-drv-nvidia-cuda xorg-x11-drv-nvidia-cuda-libs \
                    opencv opencv-devel
 
+
+# Installing CUDA
 RUN dnf config-manager --add-repo "http://developer.download.nvidia.com/compute/cuda/repos/rhel8/x86_64/cuda-rhel8.repo" \
 &&  dnf install -y cuda
 
+
+# Adding CUDA libraries to PATH variables
 ENV LD_LIBRARY_PATH="${LD_LIBRARY_PATH}:/usr/local/cuda/lib64"
 ENV PATH="$PATH:/usr/local/cuda-10.2/bin"
 
@@ -40,11 +44,18 @@ RUN git clone https://github.com/AlexeyAB/darknet.git \
 &&  export DESTDIR=/opt \
 &&  make -j $(nproc) && make install \
 &&  rm -rf /darknet
+
+
+# Adding darknet executable to PATH
 ENV PATH="$PATH:/opt/darknet"
 
+# Removing non-runtime packages
+RUN dnf erase -y opencv-devel 
+
+# Setting up training environment
 RUN mkdir /mnt/dataset
 WORKDIR /mnt/dataset
 
-EXPOSE 8090
+# Exposing ports for JSON and MJPEG servers
+EXPOSE 8070 8080 8090 
 
-RUN dnf erase -y opencv-devel 
