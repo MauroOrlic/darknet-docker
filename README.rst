@@ -4,8 +4,7 @@ darknet-docker
 Introduction
 ------------
 
-The purpose of this repository is to create a docker image used to train and run YOLOv3 models using the Darknet framework. This image uses AlexeyAB's fork of Darknet found
-`here <https://github.com/AlexeyAB/darknet>`__ compiled with CUDA and OpenCV support.
+The purpose of this repository is to create a docker image used to train and run YOLOv3 models using the Darknet framework. This image uses `AlexeyAB's fork of Darknet <https://github.com/AlexeyAB/darknet>`__ compiled with CUDA and OpenCV support.
 
 Currently the image is based on CentOS 8 linux distro. Darknet is compiled with support for CUDA 10.2 and OpenCV 3.4.
 
